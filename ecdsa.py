@@ -47,11 +47,11 @@ def ECDSA_verify(message, signature, public_key):
     z = H(message) % ORDER
     s_inv = mod_inv(s, ORDER)  # Inverse modulaire de s
     u1 = (z * s_inv) % ORDER
-    u2 = (r * s_inv) % ORDER
+    u2 = (r * s_inv) % ORDER #Calcul des multiplicateurs pour les points
 
     # Multiplier les scalaires
     P1 = mult(u1, BaseU, BaseV, p)
-    P2 = mult(u2, public_key[0], public_key[1], p)
+    P2 = mult(u2, public_key[0], public_key[1], p) #Points obtenus par multiplication scalaire.
 
     # Ajouter les points
     P = add(P1[0], P1[1], P2[0], P2[1], p)
