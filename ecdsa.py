@@ -15,7 +15,7 @@ def H(message):
     h = SHA256.new(message)
     return int(h.hexdigest(), 16)
 
-# Générer un nonce sécurisé
+# Génération du nounce
 def ECDSA_generate_nonce():
     return randint(1, ORDER - 1)
 
@@ -59,33 +59,3 @@ def ECDSA_verify(message, signature, public_key):
     # Vérifier si v == r
     v = P[0] % ORDER
     return v == r
-
-
-def main():
-    # Générer une paire de clés
-    print("=== Génération de clés ===")
-    private_key, public_key = ECDSA_generate_keys()
-    print(f"Clé privée : {private_key}")
-    print(f"Clé publique : {public_key}")
-
-    # Message à signer
-    message = b"Test message for ECDSA"
-
-    # Signer le message
-    print("\n=== Signature ===")
-    signature = ECDSA_sign(message, private_key)
-    print(f"Message : {message}")
-    print(f"Signature : {signature}")
-
-    # Vérifier la signature
-    print("\n=== Vérification ===")
-    is_valid = ECDSA_verify(message, signature, public_key)
-    print(f"Signature valide : {is_valid}")
-
-    # Test avec un message modifié
-    altered_message = b"Altered message for ECDSA"
-    is_valid_altered = ECDSA_verify(altered_message, signature, public_key)
-    print(f"Signature valide pour un message modifié : {is_valid_altered}")
-
-if __name__ == "__main__":
-    main()
